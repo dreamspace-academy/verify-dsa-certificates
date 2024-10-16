@@ -106,7 +106,7 @@ export default function CertificatePage() {
         />
         <meta
           property="og:image"
-          content="https://verify.dreamspace.academy//dss-banner.jpg"
+          content="https://verify.dreamspace.academy/dss-banner.jpg"
         />
         <meta property="og:url" content={certificateUrl} />
         <meta property="og:type" content="website" />
