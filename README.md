@@ -1,8 +1,8 @@
-# certificates.dreamspace.academy
+# verify.dreamspace.academy
 
 ![React](https://img.shields.io/badge/React-18.3.1-blue)
 
-This repository contains the source code for the [**Certificates DreamSpace Academy**](https://certificates.dreamspace.academy/) website, built using **ReactJS**. The site allows users to verify certificates issued by DreamSpace Academy.
+This repository contains the source code for the [**Certificates DreamSpace Academy**](https://verify.dreamspace.academy/) website, built using **ReactJS**. The site allows users to verify certificates issued by DreamSpace Academy.
 
 ## Getting Started
 
