@@ -7,7 +7,7 @@ import ProgrammePage from './pages/ProgrammePage.js';
 
 function App() {
   const csvUrl =
-    'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPW8QM9xJiQaFjoFlS0CCkJlDNiku6hJulKM7AwTpExi0NSkf3RIPTUlsuSXGUhRXJdEO6aTHeJIKo/pub?gid=0&single=true&output=csv'; // Replace with your actual CSV file URL
+    'https://docs.google.com/spreadsheets/d/e/2PACX-1vQMaE2Gf0PqYPyKfZMtBOGbGbpHD4lhT2LWqKDd_A832AQcB6mdTO44EUeMWG4RNVE8FUAi35FOuCB1/pub?gid=419298409&single=true&output=csv';
   const { sheetData, loading } = useGoogleSheetData(csvUrl);
 
   if (loading) {
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
-          path="/certificate/:id"
+          path="/certificate/:programId/:certificateId"
           element={<CertificatePage certificates={sheetData} />}
         />
         <Route path="/programme/:id" element={<ProgrammePage />} />
