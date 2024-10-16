@@ -27,7 +27,7 @@ function Info({ certificate, selectedProg }) {
       </Typography>
 
       <Typography variant="body2" mt={2}>
-        <strong>Issued On:</strong> {certificate.IssuedOn}
+        <strong>Issued On:</strong> {certificate.issuedOn}
       </Typography>
       <Box mt={2}>
         <Button variant="contained" fullWidth>

@@ -4,10 +4,8 @@ import {
   Button,
   Card,
   CardContent,
-  CardMedia,
   Container,
   Grid,
-  Link,
   Typography,
   CircularProgress,
 } from '@mui/material';
@@ -18,8 +16,8 @@ import Papa from 'papaparse';
 import HomeAppBar from '../components/HomeAppBar';
 import ShareDialog from '../components/ShareDialog';
 import ShareIcon from '@mui/icons-material/Share';
-import CertificateSVG from '../components/CertificateSVG';
 import Info from '../components/view-certificate/Info';
+import DSSCertificateSVG from '../components/view-certificate/certificates/DSSCertificateSVG';
 
 export default function CertificateVerification() {
   const { programId, certificateId } = useParams();
@@ -122,10 +120,11 @@ export default function CertificateVerification() {
                   </Button>
                 </Box>
 
-                <CertificateSVG
+                <DSSCertificateSVG
                   id={certificate.id}
                   name={certificate.name}
                   issuedOn={certificate.issuedOn}
+                  certificateUrl={certificateUrl}
                   sx={{
                     width: '100%',
                     borderRadius: 2,
