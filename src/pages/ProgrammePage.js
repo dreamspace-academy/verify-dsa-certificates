@@ -11,39 +11,23 @@ import {
   Alert,
 } from '@mui/material';
 import { VerifiedUser } from '@mui/icons-material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import HomeAppBar from '../components/HomeAppBar';
 import useGoogleSheetData from '../hooks/useGoogleSheetData';
 import { csvUrl } from '../utils/fileUrl';
 import Loading from '../components/Loading';
-
-// Simulated API call to verify the certificate
-const verifyCertificate = async ({ id }) => {
-  // Simulating an API call
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return id === '12345'; // For demo purposes, only '12345' is a valid ID
-};
 
 export default function ProgrammePage() {
   const { id } = useParams();
   const { sheetData, loading } = useGoogleSheetData(csvUrl);
 
   const [certificateId, setCertificateId] = useState('');
-  const [isVerifying, setIsVerifying] = useState(false);
   const [verificationResult, setVerificationResult] = useState(null);
+  const navigate = useNavigate();
 
   const handleVerify = async () => {
-    setIsVerifying(true);
-    const result = await verifyCertificate(certificateId);
-    setVerificationResult(result);
-    setIsVerifying(false);
-
-    if (result) {
-      // In a real application, you would navigate to the certificate details page here
-      console.log(
-        'Certificate verified successfully. Navigating to details page...'
-      );
-    }
+    const certificateUrl = `/certificate/${id}/${certificateId}`;
+    navigate(certificateUrl);
   };
 
   // If loading, show loading component
@@ -107,9 +91,8 @@ export default function ProgrammePage() {
                   color="primary"
                   startIcon={<VerifiedUser />}
                   onClick={handleVerify}
-                  disabled={isVerifying || !certificateId}
                 >
-                  {isVerifying ? 'Verifying...' : 'Verify Certificate'}
+                  Verify Certificate
                 </Button>
               </Box>
             </CardContent>
