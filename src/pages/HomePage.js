@@ -27,7 +27,7 @@ const HomePage = () => {
     <>
       <HomeAppBar />
       <ChooseProgramme />
-      <Box textAlign="center" mt={5}>
+      {/* <Box textAlign="center" mt={5}>
         <Typography variant="h3">Verify DSS Certification</Typography>
         <Typography variant="body1">Enter certificate ID to verify:</Typography>
         <Box mt={2}>
@@ -51,7 +51,7 @@ const HomePage = () => {
           onClose={handleCloseSnackbar}
           message="Please enter a certificate ID"
         />
-      </Box>
+      </Box> */}
     </>
   );
 };

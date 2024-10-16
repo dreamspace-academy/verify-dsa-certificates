@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CertificatePage from './pages/CertificatePage.js';
 import useGoogleSheetData from './hooks/useGoogleSheetData.js';
+import ProgrammePage from './pages/ProgrammePage.js';
 
 function App() {
   const csvUrl =
@@ -21,6 +22,7 @@ function App() {
           path="/certificate/:id"
           element={<CertificatePage certificates={sheetData} />}
         />
+        <Route path="/programme/:id" element={<ProgrammePage />} />
       </Routes>
     </Router>
   );
