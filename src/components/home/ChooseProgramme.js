@@ -10,14 +10,11 @@ import {
 } from '@mui/material';
 import useGoogleSheetData from '../../hooks/useGoogleSheetData';
 import { csvUrl } from '../../utils/fileUrl';
+import Loading from '../Loading';
 
 function ChooseProgramme() {
   const [program, setProgram] = useState(null);
   const { sheetData, loading } = useGoogleSheetData(csvUrl);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   const handleContinue = () => {
     if (program) {
@@ -45,17 +42,21 @@ function ChooseProgramme() {
           Choose Program
         </Typography>
 
-        <FormControl fullWidth sx={{ mt: 2 }}>
-          <Autocomplete
-            options={sheetData}
-            getOptionLabel={(option) => option.programeName}
-            value={program}
-            onChange={(event, newValue) => setProgram(newValue)}
-            renderInput={(params) => (
-              <TextField {...params} label="Program" variant="outlined" />
-            )}
-          />
-        </FormControl>
+        {loading ? (
+          <Loading />
+        ) : (
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <Autocomplete
+              options={sheetData}
+              getOptionLabel={(option) => option.programeName}
+              value={program}
+              onChange={(event, newValue) => setProgram(newValue)}
+              renderInput={(params) => (
+                <TextField {...params} label="Program" variant="outlined" />
+              )}
+            />
+          </FormControl>
+        )}
 
         <Button
           variant="contained"
