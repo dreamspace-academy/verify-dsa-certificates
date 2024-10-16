@@ -7,8 +7,6 @@ import {
   Container,
   TextField,
   Typography,
-  Snackbar,
-  Alert,
 } from '@mui/material';
 import { VerifiedUser } from '@mui/icons-material';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -22,7 +20,6 @@ export default function ProgrammePage() {
   const { sheetData, loading } = useGoogleSheetData(csvUrl);
 
   const [certificateId, setCertificateId] = useState('');
-  const [verificationResult, setVerificationResult] = useState(null);
   const navigate = useNavigate();
 
   const handleVerify = async () => {
@@ -98,21 +95,6 @@ export default function ProgrammePage() {
             </CardContent>
           </Card>
         </Box>
-        <Snackbar
-          open={verificationResult !== null}
-          autoHideDuration={6000}
-          onClose={() => setVerificationResult(null)}
-        >
-          <Alert
-            onClose={() => setVerificationResult(null)}
-            severity={verificationResult ? 'success' : 'error'}
-            sx={{ width: '100%' }}
-          >
-            {verificationResult
-              ? 'Certificate verified successfully! Redirecting to certificate details...'
-              : 'Invalid certificate ID. Please try again.'}
-          </Alert>
-        </Snackbar>
       </Container>
     </>
   );
