@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 
-const useCertificateData = (csvUrl) => {
-  const [certificates, setCertificates] = useState([]);
+const useGoogleSheetData = (csvUrl) => {
+  const [sheetData, setsheetData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -10,13 +10,13 @@ const useCertificateData = (csvUrl) => {
       download: true,
       header: true,
       complete: (result) => {
-        setCertificates(result.data);
+        setsheetData(result.data);
         setLoading(false);
       },
     });
   }, [csvUrl]);
 
-  return { certificates, loading };
+  return { sheetData, loading };
 };
 
-export default useCertificateData;
+export default useGoogleSheetData;
