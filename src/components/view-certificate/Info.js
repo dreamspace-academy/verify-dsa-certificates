@@ -2,6 +2,20 @@ import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 
 function Info({ certificate, selectedProg }) {
+  // Construct the certificate URL to be shared
+  const certificateUrl = `https://verify.dreamspace.academy/certificate/${selectedProg.id}/${certificate.id}`;
+
+  // Create a custom LinkedIn share message
+  const linkedInMessage = `I am excited to share that I have completed the ${selectedProg.initiative}! Check out my certificate: ${certificateUrl}`;
+
+  // Function to handle LinkedIn button click
+  const handleLinkedIn = () => {
+    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+      certificateUrl
+    )}&text=${encodeURIComponent(linkedInMessage)}`;
+    window.open(linkedInShareUrl, '_blank');
+  };
+
   return (
     <>
       <Box display="flex" alignItems="center" mb={2}>
@@ -30,18 +44,8 @@ function Info({ certificate, selectedProg }) {
         <strong>Issued On:</strong> {certificate.issuedOn}
       </Typography>
       <Box mt={2}>
-        <Button variant="contained" fullWidth>
-          Add to LinkedIn Profile
-        </Button>
-      </Box>
-      <Box mt={2}>
-        <Button variant="outlined" fullWidth>
-          Share on Facebook
-        </Button>
-      </Box>
-      <Box mt={2}>
-        <Button variant="outlined" fullWidth>
-          Share on Twitter
+        <Button variant="contained" fullWidth onClick={handleLinkedIn}>
+          Share on LinkedIn
         </Button>
       </Box>
     </>

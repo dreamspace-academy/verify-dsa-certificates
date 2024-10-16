@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   Container,
+  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
@@ -18,13 +19,22 @@ import Loading from '../components/Loading';
 export default function ProgrammePage() {
   const { id } = useParams();
   const { sheetData, loading } = useGoogleSheetData(csvUrl);
-
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [certificateId, setCertificateId] = useState('');
   const navigate = useNavigate();
 
   const handleVerify = async () => {
+    if (!certificateId.trim()) {
+      // Show Snackbar if certificateId is empty
+      setOpenSnackbar(true);
+      return;
+    }
     const certificateUrl = `/certificate/${id}/${certificateId}`;
     navigate(certificateUrl);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   // If loading, show loading component
@@ -96,6 +106,12 @@ export default function ProgrammePage() {
           </Card>
         </Box>
       </Container>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        message="Please enter a certificate ID"
+      />
     </>
   );
 }

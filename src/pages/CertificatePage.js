@@ -18,8 +18,9 @@ import ShareDialog from '../components/ShareDialog';
 import ShareIcon from '@mui/icons-material/Share';
 import Info from '../components/view-certificate/Info';
 import DSSCertificateSVG from '../components/view-certificate/certificates/DSSCertificateSVG';
+import { Helmet } from 'react-helmet';
 
-export default function CertificateVerification() {
+export default function CertificatePage() {
   const { programId, certificateId } = useParams();
   const [selectedProg, setSelectedProg] = useState(null);
   const [certificate, setCertificate] = useState(null);
@@ -93,6 +94,23 @@ export default function CertificateVerification() {
 
   return (
     <>
+      <Helmet>
+        <title>{`Certificate of ${certificate.name}`}</title>
+        <meta
+          property="og:title"
+          content={`Certificate of ${certificate.name}`}
+        />
+        <meta
+          property="og:description"
+          content={`I have successfully completed the ${selectedProg.initiative}. Check out my certificate!`}
+        />
+        <meta
+          property="og:image"
+          content="https://verify.dreamspace.academy//dss-banner.jpg"
+        />
+        <meta property="og:url" content={certificateUrl} />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <HomeAppBar />
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
