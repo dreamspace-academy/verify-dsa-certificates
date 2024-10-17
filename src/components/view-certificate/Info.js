@@ -17,7 +17,7 @@ function Info({ certificate, selectedProg }) {
 
   const certificateUrl = `https://verify.dreamspace.academy/certificate/${selectedProg.id}/${certificate.id}`;
 
-  const linkedInMessage = `I am excited to share that I have completed the ${selectedProg.initiative}! Check out my certificate: ${certificateUrl}`;
+  const linkedInMessage = `🚀 I am excited to share that I have completed the ${selectedProg.programmeName}!\n\n✍️ ${selectedProg.programmeDescription}\n\n📌 Check out my certificate:\n${certificateUrl}`;
 
   const handleLinkedIn = () => {
     const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
