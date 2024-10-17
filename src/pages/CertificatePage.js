@@ -14,7 +14,6 @@ import useGoogleSheetData from '../hooks/useGoogleSheetData';
 import { csvUrl } from '../utils/fileUrl';
 import Papa from 'papaparse';
 import HomeAppBar from '../components/HomeAppBar';
-import ShareIcon from '@mui/icons-material/Share';
 import Info from '../components/view-certificate/Info';
 import DSSCertificateSVG from '../components/view-certificate/certificates/DSSCertificateSVG';
 import { Helmet } from 'react-helmet';
@@ -58,36 +57,40 @@ export default function CertificatePage() {
     }
   }, [selectedProg, certificateId]);
 
-  const [open, setOpen] = useState(false);
   const certificateUrl = `https://verify.dreamspace.academy/certificate/${programId}/${certificateId}`;
-
-  const handleShare = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const downloadPDF = async () => {
     const svgElement = svgRef.current;
 
     if (svgElement) {
-      // Clone the SVG element into a hidden canvas
-      const canvas = await html2canvas(svgElement, { useCORS: true });
+      // Set a higher scale factor for better resolution (e.g., 2 or 3)
+      const scale = 3;
+
+      // Clone the SVG element into a higher resolution canvas
+      const canvas = await html2canvas(svgElement, {
+        scale: scale, // Increase the scale to improve resolution
+        useCORS: true, // Ensures cross-origin images are loaded correctly
+      });
 
       // Create a jsPDF instance
       const pdf = new jsPDF({
         orientation: 'landscape',
         unit: 'pt',
-        format: [canvas.width, canvas.height],
+        format: [canvas.width / scale, canvas.height / scale], // Scale down the canvas size in the PDF
       });
 
-      // Add the canvas image to the PDF
+      // Add the high-resolution canvas image to the PDF
       const imageData = canvas.toDataURL('image/png');
-      pdf.addImage(imageData, 'PNG', 0, 0, canvas.width, canvas.height);
+      pdf.addImage(
+        imageData,
+        'PNG',
+        0,
+        0,
+        canvas.width / scale,
+        canvas.height / scale
+      ); // Adjust width and height according to scale
 
-      // Download the PDF
+      // Download the PDF with the programme name
       pdf.save(`${selectedProg.programmeName}_certificate.pdf`);
     }
   };

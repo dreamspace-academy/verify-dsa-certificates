@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, CircularProgress, Card, Stack } from '@mui/material';
 import { QRCodeSVG } from 'qrcode.react';
 
-export default function ShareQRCode({ open, onClose, certificateUrl }) {
+export default function ShareQRCode({ certificateUrl }) {
   const [downloading, setDownloading] = useState(false);
 
   const handleDownload = () => {
