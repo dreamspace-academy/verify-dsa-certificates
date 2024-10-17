@@ -66,6 +66,7 @@ function Info({ certificate, selectedProg }) {
           fullWidth
           onClick={handleLinkedIn}
           startIcon={<LinkedInIcon />}
+          sx={{ backgroundColor: '#1769aa' }}
         >
           Share on LinkedIn
         </Button>
