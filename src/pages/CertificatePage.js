@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -14,18 +14,21 @@ import useGoogleSheetData from '../hooks/useGoogleSheetData';
 import { csvUrl } from '../utils/fileUrl';
 import Papa from 'papaparse';
 import HomeAppBar from '../components/HomeAppBar';
-import ShareDialog from '../components/ShareDialog';
 import ShareIcon from '@mui/icons-material/Share';
 import Info from '../components/view-certificate/Info';
 import DSSCertificateSVG from '../components/view-certificate/certificates/DSSCertificateSVG';
 import { Helmet } from 'react-helmet';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+import ShareQRCode from '../components/ShareQRCode';
+import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 
 export default function CertificatePage() {
   const { programId, certificateId } = useParams();
   const [selectedProg, setSelectedProg] = useState(null);
   const [certificate, setCertificate] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const svgRef = useRef();
   const { sheetData: programs, loading: loadingPrograms } =
     useGoogleSheetData(csvUrl);
 
@@ -64,6 +67,29 @@ export default function CertificatePage() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const downloadPDF = async () => {
+    const svgElement = svgRef.current;
+
+    if (svgElement) {
+      // Clone the SVG element into a hidden canvas
+      const canvas = await html2canvas(svgElement, { useCORS: true });
+
+      // Create a jsPDF instance
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'pt',
+        format: [canvas.width, canvas.height],
+      });
+
+      // Add the canvas image to the PDF
+      const imageData = canvas.toDataURL('image/png');
+      pdf.addImage(imageData, 'PNG', 0, 0, canvas.width, canvas.height);
+
+      // Download the PDF
+      pdf.save(`${selectedProg.programmeName}_certificate.pdf`);
+    }
   };
 
   if (loading || loadingPrograms) {
@@ -116,6 +142,7 @@ export default function CertificatePage() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <Info certificate={certificate} selectedProg={selectedProg} />
+            <ShareQRCode certificateUrl={certificateUrl} />
           </Grid>
           <Grid item xs={12} md={8}>
             <Card>
@@ -129,36 +156,35 @@ export default function CertificatePage() {
                   <Typography variant="h6">
                     {certificate.name}'s certificate
                   </Typography>
+
                   <Button
-                    startIcon={<ShareIcon />}
-                    variant="outlined"
-                    onClick={handleShare}
+                    variant="contained"
+                    color="primary"
+                    onClick={downloadPDF}
+                    sx={{ mt: 2 }}
+                    startIcon={<PictureAsPdfRoundedIcon />}
                   >
-                    Share
+                    PDF
                   </Button>
                 </Box>
-
-                <DSSCertificateSVG
-                  id={certificate.id}
-                  name={certificate.name}
-                  issuedOn={certificate.issuedOn}
-                  certificateUrl={certificateUrl}
-                  sx={{
-                    width: '100%',
-                    borderRadius: 2,
-                    background: 'linear-gradient(to right, #9c27b0, #2196f3)',
-                  }}
-                />
+                <Box ref={svgRef}>
+                  <DSSCertificateSVG
+                    id={certificate.id}
+                    name={certificate.name}
+                    issuedOn={certificate.issuedOn}
+                    certificateUrl={certificateUrl}
+                    sx={{
+                      width: '100%',
+                      borderRadius: 2,
+                      background: 'linear-gradient(to right, #9c27b0, #2196f3)',
+                    }}
+                  />
+                </Box>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
       </Container>
-      <ShareDialog
-        open={open}
-        onClose={handleClose}
-        certificateUrl={certificateUrl}
-      />
     </>
   );
 }
