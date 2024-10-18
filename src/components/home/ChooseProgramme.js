@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Card,
   Typography,
   FormControl,
   Button,
@@ -29,23 +28,12 @@ function ChooseProgramme() {
   };
 
   return (
-    <Box textAlign="center" mt={5}>
-      <Card
-        sx={{
-          borderRadius: '15px',
-          maxWidth: { xs: '90%', md: '500px' },
-          mx: 'auto',
-          p: 3,
-        }}
-      >
-        <Typography variant="h5" gutterBottom>
-          Choose Program
-        </Typography>
-
+    <Box textAlign="center">
+      <>
         {loading ? (
           <Loading />
         ) : (
-          <FormControl fullWidth sx={{ mt: 2 }}>
+          <FormControl fullWidth>
             <Autocomplete
               options={sheetData}
               getOptionLabel={(option) => option.programmeName}
@@ -67,7 +55,7 @@ function ChooseProgramme() {
         >
           Continue
         </Button>
-      </Card>
+      </>
     </Box>
   );
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import HomeAppBar from '../components/HomeAppBar';
-import ChooseProgramme from '../components/home/ChooseProgramme';
+import HeroSection from '../components/home/HeroSection';
 
 const HomePage = () => {
   return (
     <>
       <HomeAppBar />
-      <ChooseProgramme />
+      <HeroSection />
     </>
   );
 };

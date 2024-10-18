@@ -71,11 +71,11 @@ export default function ProgrammePage() {
                   alt={`${program.initiative} Logo`}
                   sx={{ width: 50, height: 50, borderRadius: '50%', mr: 2 }}
                 />
-                <Typography variant="h4" component="h1">
+                <Typography variant="h5" component="h1">
                   {program.initiative}
                 </Typography>
               </Box>
-              <Typography variant="h5" component="h2" gutterBottom>
+              <Typography variant="h6" component="h2" gutterBottom>
                 {program.programmeName}
               </Typography>
               <Typography variant="body1" paragraph>
